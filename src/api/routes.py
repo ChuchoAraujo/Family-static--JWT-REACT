@@ -33,21 +33,35 @@ def get_members_id(members_id):
 
 # -------- 3) Add (POST) new member -----------------------------------------------
 
-@api.route('/member', methods= ['POST'])
+@api.route('/registro', methods= ['POST'])
 def createMember():
-    data = request.data
-    data = json.loads(data)
-    member = Members(
-        name = data["name"],
-        last_name = data["last_name"],
-        age = data["age"]
-        )
+    name = request.json.get("name", None)
+    last_name = request.json.get("last_name", None)
+    age = request.json.get("age", None)
+    
+    member= Members.query.filter_by(name=name).first()
+    if member:
+        return jsonify({"msgInvalid": "User or password, invalid!"}), 401
 
-    db.session.add(member)
-    db.session.commit()
+    try:
+        newMember = Members(
+        name=name,
+        last_name=last_name,
+        age= age
+    )
+        db.session.add(newMember)
+        db.session.commit()
 
-    response_body ={"msg": "add ok"}
-    return jsonify(member.serialize())
+    except Exception as e:
+        return jsonify({"error": e}), 402
+    
+
+    response_body = {"msg": "User create"}
+    return jsonify(response_body), 201
+
+
+    
+ 
 
 
     # --------     4) DELETE one member -----------------------------------------------
@@ -61,3 +75,4 @@ def deleteMember(member_id):
 
     response_body = {"msg": "borrado"}
     return jsonify(byeMember.serialize())
+

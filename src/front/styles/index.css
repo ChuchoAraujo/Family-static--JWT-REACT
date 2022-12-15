@@ -1,3 +1,25 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+body {
+    background-color: #46635D;
+    font-family: sans-serif;
+    color: whitesmoke;
+}
+
+.imagen {
+    border-radius: 20px;
+}
+
+.navbarColor {
+    background-color: #20453F;
+}
+
+.containerIcons {
+    color: #whitesmoke;
+}
+
+.containerHome {
+    color: whitesmoke;
+    text-decoration: none;
+}
