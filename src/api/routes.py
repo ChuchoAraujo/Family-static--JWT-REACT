@@ -35,46 +35,68 @@ def get_members_id(members_id):
 
 # -------- 3) Add (POST) new member -----------------------------------------------
 
-@api.route('/registro', methods= ['POST'])
-def createMember():
-    name = request.json.get("name", None)
-    last_name = request.json.get("last_name", None)
-    age = request.json.get("age", None)
+
+# --------     4) DELETE one member -----------------------------------------------
+
+### DELETE PLANET
+@api.route('/member/<int:member_id>', methods= ['DELETE'])
+def deleteMember(member_id):
+    byeMember = Members.query.get(member_id)
+    db.session.delete(byeMember)
+    db.session.commit()
+
+    response_body = {"msg": "borrado"}
+    return jsonify(byeMember.serialize())
+
+#-----------------------------Registro y acceso user------------------------------------#
+@api.route('/users', methods=['GET'])
+def get_users():
+    callUsers = User.query.all()
+    result= [element.serialize() for element in callUsers]
+    response_body = {"Add perfect"}
+    return jsonify(result), 200
+
+
+@api.route('/registro', methods=['POST'])
+def createUser():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    is_active = request.json.get("is_active", None)
     
-    member= Members.query.filter_by(name=name).first()
-    if member:
-        return jsonify({"msgInvalid": "User or password, invalid!"}), 401
+    user= User.query.filter_by(email=email).first()
+    if user:
+        return jsonify({"msg": "User or password, invalid!"}), 401
 
     try:
-        newMember = Members(
-        name=name,
-        last_name=last_name,
-        age= age
+        newUser = User(
+        email=email,
+        password=password,
+        is_active= is_active
     )
-        db.session.add(newMember)
+        db.session.add(newUser)
         db.session.commit()
 
     except Exception as e:
-        return jsonify({"error": e}), 402
+        return jsonify({"error": str(e)}), 402
     
 
     response_body = {"msg": "User create"}
     return jsonify(response_body), 201
 
 
-@api.route('/acceso', methods=['POST'])
+
+@api.route('/accesso', methods=['POST'])
 def login():
-    name = request.json.get("name", None)
-    last_name = request.json.get("last_name", None)
-    age = request.json.get("age", None)
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
     
 
-    member= Members.query.filter_by(name=name, last_name=last_name, age=age).first()
+    user = User.query.filter_by(email=email, password=password).first()
 
-    if member == None:
+    if user == None:
         return jsonify({"msg": "User or password, Not exist!"}), 401
     
-    access_token = create_access_token(identity=member.name)
+    access_token = create_access_token(identity=user.email)
 
     response_body = {
         "msg": "Token create",
@@ -97,15 +119,5 @@ def protected():
  
 
 
-    # --------     4) DELETE one member -----------------------------------------------
 
-### DELETE PLANET
-@api.route('/member/<int:member_id>', methods= ['DELETE'])
-def deleteMember(member_id):
-    byeMember = Members.query.get(member_id)
-    db.session.delete(byeMember)
-    db.session.commit()
-
-    response_body = {"msg": "borrado"}
-    return jsonify(byeMember.serialize())
 

@@ -8,9 +8,8 @@ export const Home = () => {
 
 	const navigate = useNavigate();
 
-  const [name, setName] = useState("");
-  const [last_name, setLast_name] = useState("");
-  const [age, setAge] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [mensaje, setMensaje] = useState("");
 
@@ -23,9 +22,8 @@ export const Home = () => {
       },
 
       body: JSON.stringify({
-        name: name,
-        last_name: last_name,
-        age: age
+        email: email,
+        password: password,
       }),
     })
       .then((response) => response.json())
@@ -40,25 +38,21 @@ export const Home = () => {
       .catch((error) => console.log("error", error));
   };
 
-  const enviarDatos = () => {
+  const registro = () => {
     fetch(process.env.BACKEND_URL + "/api/registro", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({
-        name: name,
-        last_name: last_name,
-        age: age,
+        "email": email,
+        "password": password,
       }),
     })
       .then((response) => response.json())
       .then((result) => {
         if (result) {
           setMensaje(result.msg);
-        } else {
-          setMensaje("Usuario ya existe");
         }
       })
       .catch((error) => console.log("error", error));
@@ -67,23 +61,26 @@ export const Home = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center p-5">
-        "La familia es una de las obras maestras de la naturaleza". (George
-        Santayana)
+      <h1 className="text-center p-4">
+        Family Rest Api - JWT- REACT -AUTENTIFICATION
       </h1>
-      <div className="row mb-5">
+      <h2 className="text-center p-2">Encuentra a tu familia!</h2>
+      <hr />
+
+      <div className="row mb-5 p-5">
         <div className="col-4 align-self-center">
           <Formulario
-            enviarDatos={enviarDatos}
+            registro={registro}
             login={login}
-            setName={setName}
-            setLast_name={setLast_name}
-            setAge={setAge}
+            setEmail={setEmail}
+            setPassword={setPassword}
+            error={error}
             mensaje={mensaje}
           />
         </div>
-        <div className="col-8">
+        <div className="col-8 align-self-center">
           <img
+            width={800}
             className="imagen"
             src="https://images.unsplash.com/photo-1503431153573-96e959f4d9b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
           ></img>
