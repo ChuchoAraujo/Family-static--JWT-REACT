@@ -16,12 +16,13 @@ export const Card = () => {
   }, []);
 
   return (
-    <div className="row text-center container-fluid mt-5">
+    <div className="row text-center mt-5">
       {members.map((item, index) => (
-        <div className="card col p-4" key={index}>
+        <div className="card col-2 p-4" key={index}>
           <p>Name: {item.name}</p>
-          <p>Last_name: {item.last_name}</p>
+          <p>Lastname: {item.last_name}</p>
           <p>Age: {item.age}</p>
+          <hr></hr>
 
           <button className="btn-warning mb-2">Ver</button>
           <button className="btn-danger mb-2">

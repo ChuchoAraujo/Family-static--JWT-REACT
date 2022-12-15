@@ -15,22 +15,24 @@ export const Home = () => {
   const [mensaje, setMensaje] = useState("");
 
   const login = () => {
-    fetch(process.env.BACKEND_URL + "/api/login", {
+
+    fetch(process.env.BACKEND_URL + "/api/acceso", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
 
       body: JSON.stringify({
-        email: email,
-        password: password,
+        name: name,
+        last_name: last_name,
+        age: age
       }),
     })
       .then((response) => response.json())
       .then((result) => {
         if (result.token) {
-          localStorage.setItem("Token", result.token);
-          navigate("/demo");
+          localStorage.setItem("token", result.token);
+          navigate("/members");
         } else {
           setError(result.msg);
         }
@@ -71,12 +73,14 @@ export const Home = () => {
       </h1>
       <div className="row mb-5">
         <div className="col-4 align-self-center">
-          <Formulario 
-              enviarDatos={enviarDatos}
-              setName={setName}
-              setLast_name={setLast_name}
-              setAge={setAge}
-              mensaje={mensaje} />
+          <Formulario
+            enviarDatos={enviarDatos}
+            login={login}
+            setName={setName}
+            setLast_name={setLast_name}
+            setAge={setAge}
+            mensaje={mensaje}
+          />
         </div>
         <div className="col-8">
           <img

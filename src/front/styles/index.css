@@ -4,7 +4,7 @@
 body {
     background-color: #46635D;
     font-family: sans-serif;
-    color: whitesmoke;
+    color: #FDFAF6;
 }
 
 .imagen {
@@ -16,10 +16,22 @@ body {
 }
 
 .containerIcons {
-    color: #whitesmoke;
+    color: #FDFAF6;
 }
 
 .containerHome {
-    color: whitesmoke;
+    color: #FDFAF6;
     text-decoration: none;
+}
+
+.containerForm {
+    background-color: #568786;
+}
+
+input {
+    background-color: 568786;
+}
+
+.card {
+    background-color: #20453F;
 }

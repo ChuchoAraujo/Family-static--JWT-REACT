@@ -2,19 +2,33 @@ import React from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-export const Formulario = ({enviarDatos, setName, setAge, setLast_name, mensaje}) => {
+export const Formulario = ({enviarDatos, login, setName, setAge, setLast_name, mensaje}) => {
   return (
-    <div>
-      <div className="card mt-5 p-3">
-        <h4>Miembros</h4>
-        <input className="form-control mt-2" placeholder="Email"></input>
-        <input className="form-control mt-2" placeholder="Password"></input>
-        <Link to="/members">
-          <button className="btn-success mt-2">Entrar</button>
-        </Link>
+    <div className="me-5">
+      <div className="card mt-5 p-3 containerForm">
+        <h4>Acceso</h4>
+        <input
+          className="form-control mt-2"
+          placeholder="Name"
+          onChange={(e) => setName(e.target.value)}
+        ></input>
+        <input
+          className="form-control mt-2"
+          placeholder="Lastname"
+          onChange={(e) => setLast_name(e.target.value)}
+        ></input>
+        <input
+          className="form-control mt-2"
+          placeholder="Age"
+          onChange={(e) => setAge(e.target.value)}
+        ></input>
+
+        <button onClick={login} className="btn-warning mt-2">
+          Entrar
+        </button>
       </div>
 
-      <div className="card mt-5 p-3">
+      <div className="card mt-5 p-3 containerForm">
         <h4>Registro</h4>
         <input
           className="form-control mt-2"
@@ -31,12 +45,12 @@ export const Formulario = ({enviarDatos, setName, setAge, setLast_name, mensaje}
           placeholder="Age"
           onChange={(e) => setAge(e.target.value)}
         ></input>
-        <button className="btn-success mt-2" onClick={enviarDatos}>
+        <button className="btn-warning mt-2" onClick={enviarDatos}>
           Enviar
         </button>
 
         {mensaje && (
-          <div className="text-center alert alert-warning" role="alert">
+          <div className="text-center alert alert-warning mt-5" role="alert">
             {mensaje}
           </div>
         )}
