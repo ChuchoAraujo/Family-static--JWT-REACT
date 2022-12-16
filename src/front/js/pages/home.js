@@ -22,8 +22,8 @@ export const Home = () => {
       },
 
       body: JSON.stringify({
-        email: email,
-        password: password,
+        "email": email,
+        "password": password,
       }),
     })
       .then((response) => response.json())
@@ -32,8 +32,9 @@ export const Home = () => {
           localStorage.setItem("token", result.token);
           navigate("/members");
         } else {
-          setError(result.msg);
+           setError(result.msg);
         }
+        console.log(result.msg)
       })
       .catch((error) => console.log("error", error));
   };

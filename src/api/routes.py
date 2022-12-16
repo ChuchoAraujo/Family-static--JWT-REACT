@@ -34,7 +34,31 @@ def get_members_id(members_id):
 
 
 # -------- 3) Add (POST) new member -----------------------------------------------
+@api.route('/new', methods=['POST'])
+def createMember():
+    name = request.json.get("name", None)
+    last_name = request.json.get("last_name", None)
+    age = request.json.get("age", None)
+    
+    member= Members.query.filter_by(name=name, last_name=last_name, age=age).first()
+    if member:
+        return jsonify({"msg": "Member invalid!"}), 401
 
+    try:
+        newMember = Members(
+        name=name,
+        last_name=last_name,
+        age=age
+    )
+        db.session.add(newMember)
+        db.session.commit()
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 402
+    
+
+    response_body = {"msg": "Member create"}
+    return jsonify(response_body), 201
 
 # --------     4) DELETE one member -----------------------------------------------
 
@@ -85,7 +109,7 @@ def createUser():
 
 
 
-@api.route('/accesso', methods=['POST'])
+@api.route('/acceso', methods=['POST'])
 def login():
     email = request.json.get("email", None)
     password = request.json.get("password", None)

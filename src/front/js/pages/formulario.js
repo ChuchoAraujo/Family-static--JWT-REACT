@@ -8,7 +8,7 @@ export const Formulario = ({
   setEmail,
   setPassword,
   mensaje,
-  error,
+  error
 }) => {
   
   return (
@@ -31,7 +31,7 @@ export const Formulario = ({
         </button>
 
         {error && (
-          <div className="text-center alert alert-warning mt-5" role="alert">
+          <div class="alert alert-danger mt-3" role="alert">
             {error}
           </div>
         )}
