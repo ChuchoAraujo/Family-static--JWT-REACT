@@ -37,7 +37,7 @@ export const Formulario = ({
         )}
       </div>
 
-      <div className="card mt-5 p-3 containerForm">
+      <div className="mt-5 p-3 containerForm">
         <h4>Registro</h4>
         <input
           className="form-control mt-2"

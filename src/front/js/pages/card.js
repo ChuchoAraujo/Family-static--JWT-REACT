@@ -1,12 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 import { MdOutlineFamilyRestroom } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AddMember } from "../pages/addMember";
 
 export const Card = () => {
   const [members, setMembers] = useState([]);
   const navigate = useNavigate();
+
+  const deleteMember = (index) => {
+    setMembers(members.filter((Members, element) => element !== index))
+  }
 
   const logOut = () => {
     localStorage.removeItem("token");
@@ -44,20 +48,23 @@ export const Card = () => {
   return (
     <>
       <nav className="text-center p-5">
-        <MdOutlineFamilyRestroom fontSize={100}/>
+        <MdOutlineFamilyRestroom fontSize={100} />
         <h1>Members of family</h1>
       </nav>
 
-      <main className="row text-center">
+      <main className="row container-fluid  text-center">
         {members.map((item, index) => (
-          <div className="card col-2 p-4" key={index}>
+          <div className="card-body col-2 p-4 m-2 containerForm" key={index}>
             <p>Name: {item.name}</p>
             <p>Lastname: {item.last_name}</p>
             <p>Age: {item.age}</p>
             <hr></hr>
 
-            <button className="btn-warning mb-2">Ver</button>
-            <button className="btn-danger mb-2">
+            <Link to={"/members/" + (index + 1)}>
+              <button className="btn-warning mb-2">Ver</button>
+            </Link>
+
+            <button onClick={()=> deleteMember(index)} className="btn-danger mb-2 ms-2">
               <BsFillTrashFill />
             </button>
           </div>
@@ -70,7 +77,7 @@ export const Card = () => {
           <AddMember />
         </div>
         <div className="col-3"></div>
-        
+
         <button className="btn btn-success mt-5" onClick={logOut}>
           logout
         </button>

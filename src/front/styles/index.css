@@ -36,3 +36,7 @@ input {
     background-color: #20453F;
 }
 
+button{
+    border-radius: 5px;
+    width: 70px;
+}

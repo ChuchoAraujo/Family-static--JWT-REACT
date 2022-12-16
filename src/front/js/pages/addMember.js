@@ -33,8 +33,8 @@ export const AddMember = () => {
 
   return (
     <div className="row container">
-      <div className="card mt-5 p-3 containerForm">
-        <h4>New member</h4>
+      <div className="mt-5 p-3 containerForm">
+        <h4>Add new member</h4>
         <input
           className="form-control mt-2"
           placeholder="Name"

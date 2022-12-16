@@ -6,6 +6,7 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { Card } from "./pages/card";
+import { OneMember } from "./pages/oneMember";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -27,6 +28,7 @@ const Layout = () => {
               <Route element={<Demo />} path="/demo" />
               <Route element={<Single />} path="/single/:theid" />
               <Route element={<Card />} path="/members" />
+              <Route element={<OneMember />} path="/members/:idMember" />
               <Route element={<h1>Not found!</h1>} />
             </Routes>
             <Footer />
